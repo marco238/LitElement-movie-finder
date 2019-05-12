@@ -1,0 +1,14 @@
+{
+  "name": "lit-anything-finder",
+  "version": "1.0.0",
+  "description": "Anything Finder made with LitElement",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Me",
+  "license": "ISC",
+  "dependencies": {
+    "lit-element": "^2.1.0"
+  }
+}
