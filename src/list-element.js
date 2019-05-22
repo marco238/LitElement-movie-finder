@@ -1,13 +1,34 @@
 import {LitElement, html} from 'lit-element';
+import { connect } from 'pwa-helpers';
 
-class ListElement extends LitElement {
+import { deleteFilm } from '../src/redux/actions.js';
+import { store } from '../src/redux/store.js';
+
+class ListElement extends connect(store)(LitElement) {
   render() {
+    console.log('render');
     return html`
       <div>
+        <style>
+          li {
+            margin: 20px;
+          }
+          .delete-btn {
+            padding: 2px 10px;
+            height: 6px;
+            background-color: red;
+            border-radius: 2px;
+            color: #fff;
+            cursor: pointer;
+          }
+        </style>
+
         ${this.films === undefined ? html`<p>Nothing found !!!</p>` : ''}
         <ul>
           ${this.films !== undefined ?
-              this.films.map(item => html`<li>${item.Title}</li>`)
+              this.films.map((item, i) => html`<li>${item.Title} <span class="delete-btn" @click="${() => {
+                store.dispatch(deleteFilm(this.films, i));
+              }}">-</span></li>`)
               :
               ''}
         </ul>
@@ -19,10 +40,6 @@ class ListElement extends LitElement {
     return {
       films: {type: Array}
     }
-  }
-
-  constructor() {
-    super();
   }
 }
 

@@ -2493,34 +2493,6 @@ LitElement.finalized = true;
 
 LitElement.render = render$1;
 
-class ListElement extends LitElement {
-  render() {
-    return html`
-      <div>
-        ${this.films === undefined ? html`<p>Nothing found !!!</p>` : ''}
-        <ul>
-          ${this.films !== undefined ? this.films.map(item => html`<li>${item.Title}</li>`) : ''}
-        </ul>
-      </div>
-    `;
-  }
-
-  static get properties() {
-    return {
-      films: {
-        type: Array
-      }
-    };
-  }
-
-  constructor() {
-    super();
-  }
-
-}
-
-customElements.define('list-element', ListElement);
-
 /**
 @license
 Copyright (c) 2018 The Polymer Project Authors. All rights reserved.
@@ -2631,6 +2603,29 @@ The complete set of contributors may be found at http://polymer.github.io/CONTRI
 Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 */
+
+const ADD_FILMS = 'ADD_FILMS';
+const UPDATE_TOPIC = 'UPDATE_TOPIC';
+const DELETE_FILM = 'DELETE_FILM';
+const addFilms = films => {
+  return {
+    type: ADD_FILMS,
+    films
+  };
+};
+const updateTopic = topic => {
+  return {
+    type: UPDATE_TOPIC,
+    topic
+  };
+};
+const deleteFilm = (films, index) => {
+  return {
+    type: DELETE_FILM,
+    films,
+    index
+  };
+};
 
 function symbolObservablePonyfill(root) {
   var result;
@@ -2998,21 +2993,6 @@ if (process.env.NODE_ENV !== 'production' && typeof isCrushed.name === 'string' 
   warning('You are currently using minified code outside of NODE_ENV === "production". ' + 'This means that you are running a slower development build of Redux. ' + 'You can use loose-envify (https://github.com/zertosh/loose-envify) for browserify ' + 'or setting mode to production in webpack (https://webpack.js.org/concepts/mode/) ' + 'to ensure you have the correct code for your production build.');
 }
 
-const ADD_FILMS = 'ADD_FILMS';
-const UPDATE_TOPIC = 'UPDATE_TOPIC';
-const addFilms = films => {
-  return {
-    type: ADD_FILMS,
-    films: films
-  };
-};
-const updateTopic = topic => {
-  return {
-    type: UPDATE_TOPIC,
-    topic
-  };
-};
-
 const INITIAL_STATE = {
   topic: '',
   films: []
@@ -3029,12 +3009,59 @@ const reducer = (state = INITIAL_STATE, action) => {
         topic: action.topic
       };
 
+    case DELETE_FILM:
+      action.films.splice(action.index, 1);
+      return { ...state,
+        films: action.films
+      };
+
     default:
       return state;
   }
 };
 
 const store = createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+
+class ListElement extends connect(store)(LitElement) {
+  render() {
+    console.log('render');
+    return html`
+      <div>
+        <style>
+          li {
+            margin: 20px;
+          }
+          .delete-btn {
+            padding: 2px 10px;
+            height: 6px;
+            background-color: red;
+            border-radius: 2px;
+            color: #fff;
+            cursor: pointer;
+          }
+        </style>
+
+        ${this.films === undefined ? html`<p>Nothing found !!!</p>` : ''}
+        <ul>
+          ${this.films !== undefined ? this.films.map((item, i) => html`<li>${item.Title} <span class="delete-btn" @click="${() => {
+      store.dispatch(deleteFilm(this.films, i));
+    }}">-</span></li>`) : ''}
+        </ul>
+      </div>
+    `;
+  }
+
+  static get properties() {
+    return {
+      films: {
+        type: Array
+      }
+    };
+  }
+
+}
+
+customElements.define('list-element', ListElement);
 
 class FetcherElement extends connect(store)(LitElement) {
   render() {
@@ -3044,6 +3071,7 @@ class FetcherElement extends connect(store)(LitElement) {
         <button @click="${this.doSearch}">Search</button>
 
         <list-element .films=${this.films}></list-element>
+        <p>${this.films.length}</p>
       </div>
       `;
   }

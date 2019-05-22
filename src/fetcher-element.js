@@ -16,6 +16,7 @@ class FetcherElement extends connect(store)(LitElement) {
         <button @click="${this.doSearch}">Search</button>
 
         <list-element .films=${this.films}></list-element>
+        <p>${this.films.length}</p>
       </div>
       `;
   }
