@@ -3068,19 +3068,11 @@ class FetcherElement extends connect(store)(LitElement) {
     this.topic = e.target.value;
   }
 
-  pushFilmsToStore(films) {
-    store.dispatch(addFilms(films));
-  }
-
-  pushTopicToStore(topic) {
-    store.dispatch(updateTopic(topic));
-  }
-
   doSearch() {
     if (this.topic !== '') {
       fetch(`https://www.omdbapi.com/?s=${this.topic}&plot=full&apikey=e477ed6a`).then(response => response.json()).then((myJson, topic = this.topic) => {
-        this.pushFilmsToStore(myJson.Search);
-        this.pushTopicToStore(topic);
+        store.dispatch(addFilms(myJson.Search));
+        store.dispatch(updateTopic(topic));
       }).catch(error => console.log('Error: ', error));
     }
   }
