@@ -9,6 +9,8 @@
   "author": "Me",
   "license": "ISC",
   "dependencies": {
-    "lit-element": "^2.1.0"
+    "lit-element": "^2.1.0",
+    "pwa-helpers": "^0.9.1",
+    "redux": "^4.0.1"
   }
 }

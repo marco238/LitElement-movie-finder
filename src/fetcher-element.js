@@ -1,7 +1,10 @@
-import {LitElement, html} from 'lit-element';
+import { LitElement, html } from 'lit-element';
 import './list-element.js';
+import { connect } from 'pwa-helpers';
 
-class FetcherElement extends LitElement {
+import { store } from '../src/redux/store.js';
+
+class FetcherElement extends connect(store)(LitElement) {
   render() {
     return html`
       <div>
@@ -13,10 +16,9 @@ class FetcherElement extends LitElement {
       `;
   }
 
-  constructor() {
-    super();
-    this.topic = '';
-    this.films = [];
+  stateChanged(state) {
+    this.topic = state.todos;
+    this.films = state.filter;
   }
   
   static get properties() {
