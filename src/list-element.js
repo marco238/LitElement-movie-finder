@@ -2,7 +2,6 @@ import {LitElement, html} from 'lit-element';
 
 class ListElement extends LitElement {
   render() {
-    console.log(this.films)
     return html`
       <div>
         ${this.films === undefined ? html`<p>Nothing found !!!</p>` : ''}
