@@ -23,6 +23,7 @@
     "rollup-plugin-serve": "^1.0.1"
   },
   "dependencies": {
+    "@vaadin/router": "^1.2.0",
     "lit-element": "^2.1.0",
     "pwa-helpers": "^0.9.1",
     "redux": "^4.0.1"
