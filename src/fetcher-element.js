@@ -22,7 +22,7 @@ class FetcherElement extends connect(store)(LitElement) {
   }
 
   stateChanged(state) {
-    this.topic = state.topic;
+    this.topic = '';
     this.films = [...state.films];
   }
   
