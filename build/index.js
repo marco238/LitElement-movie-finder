@@ -3024,7 +3024,6 @@ const store = createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window
 
 class ListElement extends connect(store)(LitElement) {
   render() {
-    console.log('render');
     return html`
       <div>
         <style>
@@ -3078,7 +3077,7 @@ class FetcherElement extends connect(store)(LitElement) {
 
   stateChanged(state) {
     this.topic = state.topic;
-    this.films = state.films;
+    this.films = [...state.films];
   }
 
   static get properties() {

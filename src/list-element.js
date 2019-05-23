@@ -6,7 +6,6 @@ import { store } from '../src/redux/store.js';
 
 class ListElement extends connect(store)(LitElement) {
   render() {
-    console.log('render');
     return html`
       <div>
         <style>
@@ -26,9 +25,7 @@ class ListElement extends connect(store)(LitElement) {
         ${this.films === undefined ? html`<p>Nothing found !!!</p>` : ''}
         <ul>
           ${this.films !== undefined ?
-              this.films.map((item, i) => html`<li>${item.Title} <span class="delete-btn" @click="${() => {
-                store.dispatch(deleteFilm(this.films, i));
-              }}">-</span></li>`)
+              this.films.map((item, i) => html`<li>${item.Title} <span class="delete-btn" @click="${() => {store.dispatch(deleteFilm(this.films, i));}}">-</span></li>`)
               :
               ''}
         </ul>
