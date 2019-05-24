@@ -12,6 +12,8 @@ class FetcherElement extends connect(store)(LitElement) {
   render() {
     return html`
       <div>
+        <h2>Home</h2>
+
         <input type="text" placeholder='Type here...' .value=${this.topic} @input=${this.handleInput}>
         <button @click="${this.doSearch}">Search</button>
 
