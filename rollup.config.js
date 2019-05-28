@@ -11,11 +11,12 @@ export default {
 		sourcemap: true
 	},
 	plugins: [
-    resolve(),
+		resolve(),
 		babel(),
 		serve({
       open: true,
-      contentBase: `build`,
+			contentBase: `build`,
+			historyApiFallback: true
     }),
     livereload(`build`)
 	]

@@ -24,9 +24,9 @@
   },
   "dependencies": {
     "@vaadin/router": "^1.2.0",
-    "@vaadin/vaadin-charts": "^6.2.2",
     "lit-element": "^2.1.0",
     "pwa-helpers": "^0.9.1",
-    "redux": "^4.0.1"
+    "redux": "^4.0.1",
+    "wc-epic-spinners": "^1.0.0"
   }
 }

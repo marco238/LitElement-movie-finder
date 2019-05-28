@@ -1,4 +1,5 @@
 import {
+  LOG_IN,
   UPDATE_PATH,
   ADD_FILMS,
   UPDATE_TOPIC,
@@ -8,11 +9,17 @@ import {
 const INITIAL_STATE = {
   path: '/',
   topic: '',
-  films: []
+  films: [],
+  logged: false
 };
 
 export const reducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
+    case LOG_IN:
+      return {
+        ...state,
+        logged: true
+        };
     case UPDATE_PATH:
       return {
         ...state,

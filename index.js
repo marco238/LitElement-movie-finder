@@ -2,6 +2,7 @@ import { Router } from '@vaadin/router';
 
 import './src/fetcher-element.js';
 import './src/stats-element.js';
+import './src/login-signup.js';
 
 window.addEventListener('load', () => { 
   initRouter();
@@ -12,6 +13,10 @@ function initRouter() {
   router.setRoutes([
     {
       path: '/',
+      component: 'login-signup'
+    },
+    {
+      path: '/fetcher',
       component: 'fetcher-element'
     },
     {

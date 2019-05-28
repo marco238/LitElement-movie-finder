@@ -1,4 +1,4 @@
-import {LitElement, html} from 'lit-element';
+import { LitElement, html } from 'lit-element';
 import { connect } from 'pwa-helpers';
 
 import { deleteFilm } from '../src/redux/actions.js';
